@@ -76,7 +76,7 @@ func ListenForWs(conn *WebSocketConnection) {
 	log.Println("進入 -> ListenForWs")
 	var payload WsPayload
 	for {
-		log.Println("迴圈 -> ListenForWs")
+		//log.Println("迴圈 -> ListenForWs")
 		err := conn.ReadJSON(&payload)
 		if err != nil {
 			// donothing
@@ -103,6 +103,16 @@ func ListenToWsChannel() {
 			response.Action = "list_users"
 			response.ConnectedUsers = users
 			broadcastToAll(response)
+		case "left":
+			response.Action = "list_users"
+			delete(clients, e.Conn)
+			users := getUserList()
+			response.ConnectedUsers = users
+			broadcastToAll(response)
+		case "broadcast":
+			response.Action = "broadcast"
+			response.Message = fmt.Sprintf("<strong>%s</strong>:%s", e.Username, e.Message)
+			broadcastToAll(response)
 		}
 		//response.Action = "Got here"
 		//response.Message = fmt.Sprintf("Some message, and action was %s", e.Action)
@@ -113,7 +123,9 @@ func ListenToWsChannel() {
 func getUserList() []string {
 	var userList []string
 	for _, x := range clients {
-		userList = append(userList, x)
+		if x != "" {
+			userList = append(userList, x)
+		}
 	}
 	sort.Strings(userList)
 	return userList
