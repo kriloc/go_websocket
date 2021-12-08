@@ -1,5 +1,5 @@
-# go_websocket
-https://github.com/tsawler/ws-udemy/releases/tag/v12
+# Websocket in golang
+
 ## notes
 
 ### V1
