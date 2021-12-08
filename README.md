@@ -2,6 +2,10 @@
 https://github.com/tsawler/ws-udemy/releases/tag/v12
 ## notes
 
+### V1
+使用websocket的線上聊天，列出使用者及其訊息，斷線重連。
+![Imgur](https://i.imgur.com/qPGDjok.jpg)
+
 ## go libs
 go get github.com/CloudyKit/jet/v6
 
